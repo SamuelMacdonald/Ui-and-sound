@@ -11,6 +11,7 @@ public class AudioManger : MonoBehaviour
     public AudioClip click;
     public AudioClip music;
 
+    
     private void Start()
     {
         musicSource.clip = music;

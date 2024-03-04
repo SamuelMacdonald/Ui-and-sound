@@ -11,6 +11,7 @@ public class Musicvolume : MonoBehaviour
     [SerializeField] private Slider musicSlider;
     [SerializeField] private Slider SFXSlider;
 
+    bool isMuted;
     private void Start()
     {
         if(PlayerPrefs.HasKey("musicVolume"))
@@ -26,12 +27,30 @@ public class Musicvolume : MonoBehaviour
        
     }
 
+    public void MuteToggle(bool muted)
+    {
+        if (muted)
+        {
+            myMix.SetFloat("Music", -80);
+            isMuted = true;
+        }
+        else
+        {
+            LoadVolume();
+            isMuted = false;
+            SetMusic();
+        }
+    }
+
 
     public void SetMusic()
     {
-        float volume = musicSlider.value;
-        myMix.SetFloat("Music", volume);
-        PlayerPrefs.SetFloat("musicVolume", volume);
+        if(isMuted == false)
+        {
+            float volume = musicSlider.value;
+            myMix.SetFloat("Music", volume);
+            PlayerPrefs.SetFloat("musicVolume", volume);
+        }
     }
     public void SetSFX()
     {
